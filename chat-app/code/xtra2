@@ -1,0 +1,32 @@
+<form action="save_ethnicity.php" method="POST">
+    <label>What's your nationality?</label>
+    <input class="py-3 border w-full rounded-md" type="text" name="nationality" id="" placeholder="Add New">
+    <div class="mt-6">
+        <label>Select your ethnicity:</label>
+    </div>
+    <div class="mt-2 flex flex-wrap gap-1">
+        <?php
+        $result = get_ethnicity($mysqli);
+        while ($row = $result->fetch_assoc()) {
+            echo '<button class="px-6 py-2 rounded-3xl w-fit border border-gray-300 text-gray-500" name="ethnicity[]" value="' . $row['id'] . '">' . $row['ethnicity'] . '</button>';
+        }
+        ?>
+    </div>
+    <button type="submit">Submit</button>
+</form>
+
+
+
+
+
+<?php
+
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $nationality = $_POST["nationality"];
+    $selectedEthnicities = isset($_POST["ethnicity"]) ? $_POST["ethnicity"] : array();
+    header("Location: thank_you.php");
+    exit();
+}
+?>
+
